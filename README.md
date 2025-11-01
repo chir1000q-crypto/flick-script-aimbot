@@ -1,2 +1,2 @@
 # flick-script-aimbot
-Aimbot
+Este es un script que sirve para el juego FPS Flick, espero les guste
