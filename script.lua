@@ -464,18 +464,22 @@ local function LoadUltraMaxScript()
             fovCircle.Transparency = 0.7
             fovCircle.Adornee = Camera
             fovCircle.AlwaysOnTop = true
-            game.Debris:AddItem(fovCircle, 0.1) -- Temporary for visualization
+            game.Debris:AddItem(fovCircle, 0.1) -- Temporary visualization of FOV circle
         end
     end)
 
+    -- Input Handling for Menu and Click Activation
     UserInputService.InputBegan:Connect(function(input, gameProcessed)
-        if input.UserInputType == Enum.UserInputType.MouseButton2 then
-            isClicking = true
-        elseif input.KeyCode == Enum.KeyCode.Insert or input.KeyCode == Enum.KeyCode.H or input.KeyCode == Enum.KeyCode.F1 then
-            MainWindow:Toggle()
-            print("Supreme Menu toggled with " .. tostring(input.KeyCode))
+        if not gameProcessed then
+            if input.UserInputType == Enum.UserInputType.MouseButton2 then
+                isClicking = true
+            elseif input.KeyCode == Enum.KeyCode.Insert or input.KeyCode == Enum.KeyCode.H or input.KeyCode == Enum.KeyCode.F1 then
+                MainWindow:Toggle()
+                print("Supreme Menu toggled with " .. tostring(input.KeyCode))
+            end
         end
     end)
+
     UserInputService.InputEnded:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton2 then
             isClicking = false
@@ -483,8 +487,14 @@ local function LoadUltraMaxScript()
     end)
 
     -- Epic Startup Notification
-    Rayfield:Notify({Title = "Flick Ultra-Max v3.0", Content = "Script perfected! Dominate with AI.", Duration = 5, Image = 4483362458})
-    print("🎯 Flick Ultra-Max Epic loaded. Key accepted. Rayfield UI active.")
+    Rayfield:Notify({
+        Title = "Flick Ultra-Max v3.0",
+        Content = "Script perfected! Dominate with AI.",
+        Duration = 5,
+        Image = 4483362458
+    })
+    print("🎯 Flick Ultra-Max Epic loaded. Key accepted. Rayfield UI active. Time: 05:34 PM -05, Saturday, November 01, 2025")
+
 end
 
 -- Initiate Supreme Key System
