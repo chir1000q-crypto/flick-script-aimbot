@@ -1,0 +1,2 @@
+# flick-script-aimbot
+Aimbot
