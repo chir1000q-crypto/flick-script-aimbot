@@ -1,6 +1,7 @@
 -- Flick Aimbot + ESP Ultra con Sistema de Key - SOLO PARA DESARROLLO PRIVADO
 -- Key: LOL (Encuéntrala en https://discord.gg/8wqtz)
 -- RIESGO DE BAN EN SERVIDORES PÚBLICOS - Compatible PC/Móvil - Panel FIJO
+-- Fecha: 05:08 PM -05, Sábado, 01 de Noviembre de 2025
 
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
@@ -26,8 +27,8 @@ KeyFrame.Parent = KeyGui
 KeyFrame.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
 KeyFrame.BackgroundTransparency = 0.2
 KeyFrame.Position = UDim2.new(0.5, -150, 0.5, -100)
-KeyFrame.Size = UDim2.new(0, 300, 0, 200)
-KeyFrame.ZIndex = 1000
+KeyFrame.Size = UDim2.new(0, 300, 0, 250)
+KeyFrame.ZIndex = 2000
 
 local KeyGradient = Instance.new("UIGradient")
 KeyGradient.Color = ColorSequence.new{
@@ -57,19 +58,19 @@ KeyTitle.Text = "Ingresa la Key (https://discord.gg/8wqtz)"
 KeyTitle.TextColor3 = Color3.fromRGB(0, 255, 255)
 KeyTitle.TextSize = 18
 KeyTitle.TextStrokeTransparency = 0.6
-KeyTitle.ZIndex = 1001
+KeyTitle.ZIndex = 2001
 
 local KeyBox = Instance.new("TextBox")
 KeyBox.Parent = KeyFrame
 KeyBox.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 KeyBox.Position = UDim2.new(0, 20, 0, 60)
 KeyBox.Size = UDim2.new(0, 260, 0, 50)
-KeyBox.PlaceholderText = "Key (ej: LOL)"
+KeyBox.PlaceholderText = "Key"
 KeyBox.Text = ""
 KeyBox.Font = Enum.Font.Gotham
 KeyBox.TextColor3 = Color3.fromRGB(255, 255, 255)
 KeyBox.TextSize = 20
-KeyBox.ZIndex = 1001
+KeyBox.ZIndex = 2001
 local KeyBoxCorner = Instance.new("UICorner")
 KeyBoxCorner.CornerRadius = UDim.new(0, 8)
 KeyBoxCorner.Parent = KeyBox
@@ -78,15 +79,29 @@ local VerifyButton = Instance.new("TextButton")
 VerifyButton.Parent = KeyFrame
 VerifyButton.BackgroundColor3 = Color3.fromRGB(0, 200, 0)
 VerifyButton.Position = UDim2.new(0, 20, 0, 120)
-VerifyButton.Size = UDim2.new(0, 260, 0, 50)
+VerifyButton.Size = UDim2.new(0, 125, 0, 50)
 VerifyButton.Font = Enum.Font.GothamBold
-VerifyButton.Text = "Verificar Key"
+VerifyButton.Text = "Verificar"
 VerifyButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 VerifyButton.TextSize = 20
-VerifyButton.ZIndex = 1001
+VerifyButton.ZIndex = 2001
 local VerifyCorner = Instance.new("UICorner")
 VerifyCorner.CornerRadius = UDim.new(0, 8)
 VerifyCorner.Parent = VerifyButton
+
+local CopyButton = Instance.new("TextButton")
+CopyButton.Parent = KeyFrame
+CopyButton.BackgroundColor3 = Color3.fromRGB(0, 0, 200)
+CopyButton.Position = UDim2.new(0, 155, 0, 120)
+CopyButton.Size = UDim2.new(0, 125, 0, 50)
+CopyButton.Font = Enum.Font.GothamBold
+CopyButton.Text = "Copiar"
+CopyButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+CopyButton.TextSize = 20
+CopyButton.ZIndex = 2001
+local CopyCorner = Instance.new("UICorner")
+CopyCorner.CornerRadius = UDim.new(0, 8)
+CopyCorner.Parent = CopyButton
 
 -- Partículas para Key GUI
 local ParticleEmitter = Instance.new("ParticleEmitter")
@@ -100,10 +115,9 @@ ParticleEmitter.Speed = NumberRange.new(2)
 ParticleEmitter.Color = ColorSequence.new(Color3.fromRGB(0, 255, 255))
 ParticleEmitter.Enabled = true
 
--- Verificación de Key
+-- Verificación de Key y Copiar Link
 local function LoadMainScript()
     KeyGui:Destroy()
-    -- Script Principal
     local ScreenGui = Instance.new("ScreenGui")
     ScreenGui.Name = "FlickHackGUI_" .. math.random(1000, 9999)
     ScreenGui.Parent = LocalPlayer:WaitForChild("PlayerGui")
@@ -112,19 +126,18 @@ local function LoadMainScript()
     ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
     ScreenGui.Enabled = true
 
-    -- Mensaje de carga
+    -- Mensaje de carga persistente si falla
     local LoadMessage = Instance.new("TextLabel")
     LoadMessage.Parent = ScreenGui
     LoadMessage.BackgroundTransparency = 1
-    LoadMessage.Position = UDim2.new(0.5, 0, 0.05, 0)
+    LoadMessage.Position = UDim2.new(0.5, -100, 0.05, 0)
     LoadMessage.Size = UDim2.new(0, 200, 0, 30)
     LoadMessage.Font = Enum.Font.GothamBlack
-    LoadMessage.Text = "Flick Hack Loaded! Press H/Insert"
+    LoadMessage.Text = "Flick Hack Loaded! Press H/Insert or Tap MENU"
     LoadMessage.TextColor3 = Color3.fromRGB(0, 255, 255)
     LoadMessage.TextSize = 20
     LoadMessage.TextStrokeTransparency = 0.6
-    LoadMessage.ZIndex = 1100
-    game:GetService("Debris"):AddItem(LoadMessage, 5)
+    LoadMessage.ZIndex = 2000
 
     -- Variables del Aimbot y ESP
     local AimbotEnabled = false
@@ -150,7 +163,7 @@ local function LoadMainScript()
     FOVCircle.Position = UDim2.new(0.5, -FOV, 0.5, -FOV)
     FOVCircle.Size = UDim2.new(0, FOV * 2, 0, FOV * 2)
     FOVCircle.Visible = false
-    FOVCircle.ZIndex = 900
+    FOVCircle.ZIndex = 1900
     local FOVCorner = Instance.new("UICorner")
     FOVCorner.CornerRadius = UDim.new(1, 0)
     FOVCorner.Parent = FOVCircle
@@ -164,7 +177,7 @@ local function LoadMainScript()
     MainFrame.Position = UDim2.new(0.5, -200, 0.5, -175)
     MainFrame.Size = UDim2.new(0, 400, 0, 400)
     MainFrame.Visible = false
-    MainFrame.ZIndex = 1000
+    MainFrame.ZIndex = 2000
     MainFrame.ClipsDescendants = false
 
     local Gradient = Instance.new("UIGradient")
@@ -185,7 +198,6 @@ local function LoadMainScript()
     Stroke.Transparency = 0.3
     Stroke.Parent = MainFrame
 
-    -- Escala para dispositivos
     local UIScale = Instance.new("UIScale")
     UIScale.Scale = UserInputService.TouchEnabled and 0.5 or 1
     UIScale.Parent = MainFrame
@@ -201,7 +213,7 @@ local function LoadMainScript()
     MobileToggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
     MobileToggleButton.TextSize = 24
     MobileToggleButton.Visible = UserInputService.TouchEnabled
-    MobileToggleButton.ZIndex = 1100
+    MobileToggleButton.ZIndex = 2000
     local MobileCorner = Instance.new("UICorner")
     MobileCorner.CornerRadius = UDim.new(0, 60)
     MobileCorner.Parent = MobileToggleButton
@@ -233,7 +245,7 @@ local function LoadMainScript()
     Title.TextSize = 30
     Title.TextStrokeTransparency = 0.5
     Title.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
-    Title.ZIndex = 1001
+    Title.ZIndex = 2001
 
     -- Drag-and-Drop
     local dragging, dragStart, startPos
@@ -242,6 +254,7 @@ local function LoadMainScript()
             dragging = true
             dragStart = input.Position
             startPos = MainFrame.Position
+            print("Drag started at: " .. tostring(dragStart))
         end
     end)
     UserInputService.InputChanged:Connect(function(input)
@@ -253,6 +266,7 @@ local function LoadMainScript()
     UserInputService.InputEnded:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
             dragging = false
+            print("Drag ended")
         end
     end)
 
@@ -273,7 +287,7 @@ local function LoadMainScript()
     AimbotToggle.Text = "Aimbot: OFF"
     AimbotToggle.TextColor3 = Color3.fromRGB(255, 255, 255)
     AimbotToggle.TextSize = 22
-    AimbotToggle.ZIndex = 1001
+    AimbotToggle.ZIndex = 2001
     local AimbotCorner = Instance.new("UICorner")
     AimbotCorner.CornerRadius = UDim.new(0, 12)
     AimbotCorner.Parent = AimbotToggle
@@ -288,7 +302,7 @@ local function LoadMainScript()
     ESPToggle.Text = "ESP: OFF"
     ESPToggle.TextColor3 = Color3.fromRGB(255, 255, 255)
     ESPToggle.TextSize = 22
-    ESPToggle.ZIndex = 1001
+    ESPToggle.ZIndex = 2001
     local ESPCorner = Instance.new("UICorner")
     ESPCorner.CornerRadius = UDim.new(0, 12)
     ESPCorner.Parent = ESPToggle
@@ -303,7 +317,7 @@ local function LoadMainScript()
     SilentToggle.Text = "Silent Aim: OFF"
     SilentToggle.TextColor3 = Color3.fromRGB(255, 255, 255)
     SilentToggle.TextSize = 22
-    SilentToggle.ZIndex = 1001
+    SilentToggle.ZIndex = 2001
     local SilentCorner = Instance.new("UICorner")
     SilentCorner.CornerRadius = UDim.new(0, 12)
     SilentCorner.Parent = SilentToggle
@@ -318,7 +332,7 @@ local function LoadMainScript()
     PartToggle.Text = "Target: Head"
     PartToggle.TextColor3 = Color3.fromRGB(255, 255, 255)
     PartToggle.TextSize = 22
-    PartToggle.ZIndex = 1001
+    PartToggle.ZIndex = 2001
     local PartCorner = Instance.new("UICorner")
     PartCorner.CornerRadius = UDim.new(0, 12)
     PartCorner.Parent = PartToggle
@@ -333,14 +347,14 @@ local function LoadMainScript()
     FOVLabel.Text = "FOV: 120"
     FOVLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
     FOVLabel.TextSize = 20
-    FOVLabel.ZIndex = 1001
+    FOVLabel.ZIndex = 2001
 
     local FOVSliderFrame = Instance.new("Frame")
     FOVSliderFrame.Parent = MainFrame
     FOVSliderFrame.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
     FOVSliderFrame.Position = UDim2.new(0, 20, 0, 270)
     FOVSliderFrame.Size = UDim2.new(0, 360, 0, 25)
-    FOVSliderFrame.ZIndex = 1001
+    FOVSliderFrame.ZIndex = 2001
     local FOVSliderCorner = Instance.new("UICorner")
     FOVSliderCorner.CornerRadius = UDim.new(0, 10)
     FOVSliderCorner.Parent = FOVSliderFrame
@@ -349,7 +363,7 @@ local function LoadMainScript()
     FOVSlider.Parent = FOVSliderFrame
     FOVSlider.BackgroundColor3 = Color3.fromRGB(0, 255, 255)
     FOVSlider.Size = UDim2.new(0.4, 0, 1, 0)
-    FOVSlider.ZIndex = 1002
+    FOVSlider.ZIndex = 2002
     local FOVSliderCorner = Instance.new("UICorner")
     FOVSliderCorner.CornerRadius = UDim.new(0, 10)
     FOVSliderCorner.Parent = FOVSlider
@@ -389,14 +403,14 @@ local function LoadMainScript()
     SmoothLabel.Text = "Smooth: 0.08"
     SmoothLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
     SmoothLabel.TextSize = 20
-    SmoothLabel.ZIndex = 1001
+    SmoothLabel.ZIndex = 2001
 
     local SmoothSliderFrame = Instance.new("Frame")
     SmoothSliderFrame.Parent = MainFrame
     SmoothSliderFrame.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
     SmoothSliderFrame.Position = UDim2.new(0, 20, 0, 330)
     SmoothSliderFrame.Size = UDim2.new(0, 360, 0, 25)
-    SmoothSliderFrame.ZIndex = 1001
+    SmoothSliderFrame.ZIndex = 2001
     local SmoothSliderCorner = Instance.new("UICorner")
     SmoothSliderCorner.CornerRadius = UDim.new(0, 10)
     SmoothSliderCorner.Parent = SmoothSliderFrame
@@ -405,7 +419,7 @@ local function LoadMainScript()
     SmoothSlider.Parent = SmoothSliderFrame
     SmoothSlider.BackgroundColor3 = Color3.fromRGB(0, 255, 255)
     SmoothSlider.Size = UDim2.new(0.16, 0, 1, 0)
-    SmoothSlider.ZIndex = 1002
+    SmoothSlider.ZIndex = 2002
     local SmoothSliderCorner = Instance.new("UICorner")
     SmoothSliderCorner.CornerRadius = UDim.new(0, 10)
     SmoothSliderCorner.Parent = SmoothSlider
@@ -443,14 +457,15 @@ local function LoadMainScript()
     CloseButton.Text = "X"
     CloseButton.TextColor3 = Color3.fromRGB(255, 255, 255)
     CloseButton.TextSize = 24
-    CloseButton.ZIndex = 1001
+    CloseButton.ZIndex = 2001
     local CloseCorner = Instance.new("UICorner")
     CloseCorner.CornerRadius = UDim.new(0, 12)
     CloseCorner.Parent = CloseButton
 
-    -- Aimbot Mejorado
+    -- Aimbot Mejorado (Ultra Avanzado)
     local function GetClosestPlayer()
         local closest, dist = nil, math.huge
+        local targets = {}
         for _, player in pairs(Players:GetPlayers()) do
             if player ~= LocalPlayer and player.Character and player.Character:FindFirstChild(TargetPart) then
                 if TeamCheck and player.Team == LocalPlayer.Team then continue end
@@ -465,6 +480,7 @@ local function LoadMainScript()
                             local humanoid = player.Character:FindFirstChild("Humanoid")
                             local health = humanoid and humanoid.Health or 100
                             local priority = (health < 30 or dist3D < 100) and dist3D * 0.5 or dist3D
+                            table.insert(targets, {player = player, distance = priority, health = health})
                             if priority < dist then
                                 if WallCheck then
                                     local ray = Workspace:Raycast(Camera.CFrame.Position, (part.Position - Camera.CFrame.Position).Unit * 1000)
@@ -480,6 +496,17 @@ local function LoadMainScript()
                 end
             end
         end
+        -- Multi-targeting (selecciona hasta 3 objetivos cercanos)
+        if #targets > 1 then
+            table.sort(targets, function(a, b) return a.distance < b.distance end)
+            if #targets > 3 then targets = {targets[1], targets[2], targets[3]} end
+            for _, target in pairs(targets) do
+                if target.player ~= closest and (target.health < 50 or target.distance < 150) then
+                    closest = target.player
+                    break
+                end
+            end
+        end
         return closest
     end
 
@@ -489,10 +516,11 @@ local function LoadMainScript()
         if humanoid and humanoid.WalkSpeed > 0 then
             local velocity = humanoid.MoveDirection * humanoid.WalkSpeed
             local bodyVelocity = part.Parent:FindFirstChildOfClass("BodyVelocity") and part.Parent.BodyVelocity.Velocity or Vector3.new(0, 0, 0)
+            local state = humanoid:GetState()
+            local jumpOffset = (state == Enum.HumanoidStateType.Jumping or state == Enum.HumanoidStateType.Freefall) and Vector3.new(0, 5, 0) or Vector3.new(0, 0, 0)
             local dist = (part.Position - Camera.CFrame.Position).Magnitude
             local ping = NetworkClient.Latency or 0.1
-            local timeToTarget = dist / 100 * (ping * 1.5)
-            local jumpOffset = humanoid.Jump and Vector3.new(0, 5, 0) or Vector3.new(0, 0, 0)
+            local timeToTarget = dist / (100 + math.random(5, 15)) * (ping * 1.5) -- Randomización anti-detect
             return part.Position + (velocity + bodyVelocity) * timeToTarget + Vector3.new(0, VerticalOffset, 0) + jumpOffset
         end
         return part.Position + Vector3.new(0, VerticalOffset, 0)
@@ -502,16 +530,15 @@ local function LoadMainScript()
         if target and target.Character and target.Character:FindFirstChild(TargetPart) then
             local part = target.Character[TargetPart]
             local targetPos = PredictPosition(part)
+            local sensitivity = dist > 300 and 0.05 or Smoothness -- Dinámico por distancia
             if SilentAim then
-                -- Simular disparo sin mover cámara (mock)
                 local ray = Workspace:Raycast(Camera.CFrame.Position, (targetPos - Camera.CFrame.Position).Unit * 1000)
                 if ray and ray.Instance:IsDescendantOf(target.Character) then
-                    -- Aquí iría la lógica de disparo si el juego lo permite
+                    -- Mock de Silent Aim (necesita lógica de disparo específica del juego)
                 end
             else
                 local targetCFrame = CFrame.lookAt(Camera.CFrame.Position, targetPos)
-                local smooth = Smoothness * (1 - math.exp(-dist / 100)) -- No lineal
-                Camera.CFrame = Camera.CFrame:Lerp(targetCFrame, smooth)
+                Camera.CFrame = Camera.CFrame:Lerp(targetCFrame, sensitivity * (1 - math.exp(-dist / 200)))
             end
         end
     end
@@ -527,7 +554,7 @@ local function LoadMainScript()
         billboard.Size = UDim2.new(0, 80, 0, 80)
         billboard.StudsOffset = Vector3.new(0, 4, 0)
         billboard.AlwaysOnTop = true
-        billboard.ZIndex = 800
+        billboard.ZIndex = 1800
 
         local frame = Instance.new("Frame")
         frame.Parent = billboard
@@ -575,7 +602,7 @@ local function LoadMainScript()
         tracer.Transparency = 0.5
         tracer.Length = 1000
         tracer.Parent = ScreenGui
-        tracer.ZIndex = 700
+        tracer.ZIndex = 1700
 
         ESPs[player] = {billboard = billboard, frame = frame, distLabel = distLabel, healthBar = healthBar, tracer = tracer}
     end
@@ -641,11 +668,16 @@ local function LoadMainScript()
     UserInputService.InputBegan:Connect(function(input, gameProcessed)
         if input.UserInputType == Enum.UserInputType.MouseButton2 then
             isClicking = true
+            print("Click detected")
+        elseif input.KeyCode == Enum.KeyCode.Insert or input.KeyCode == Enum.KeyCode.H then
+            print("Key press detected: " .. tostring(input.KeyCode))
+            animateFrame(not MainFrame.Visible)
         end
     end)
     UserInputService.InputEnded:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton2 then
             isClicking = false
+            print("Click ended")
         end
     end)
 
@@ -703,6 +735,7 @@ local function LoadMainScript()
 
     MobileToggleButton.InputEnded:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.Touch then
+            print("Touch detected on MENU button")
             animateFrame(not MainFrame.Visible)
         end
     end)
@@ -710,6 +743,7 @@ local function LoadMainScript()
     UserInputService.InputBegan:Connect(function(input, gameProcessed)
         if gameProcessed then return end
         if input.KeyCode == Enum.KeyCode.Insert or input.KeyCode == Enum.KeyCode.H then
+            print("Attempting to toggle menu with " .. tostring(input.KeyCode))
             animateFrame(not MainFrame.Visible)
         end
     end)
@@ -736,12 +770,20 @@ VerifyButton.MouseButton1Click:Connect(function()
     end
 end)
 
+CopyButton.MouseButton1Click:Connect(function()
+    if setclipboard then
+        setclipboard("https://discord.gg/8wqtz")
+        KeyTitle.Text = "Link copiado: https://discord.gg/8wqtz"
+    else
+        KeyTitle.Text = "No se pudo copiar. Usa Ctrl+C manualmente: https://discord.gg/8wqtz"
+    end
+end)
+
 KeyBox.FocusLost:Connect(function(enterPressed)
     if enterPressed then
         VerifyButton.MouseButton1Click:Fire()
     end
 end)
 
--- Auto-focus en textbox
 KeyBox:CaptureFocus()
-print("Ty For Use This")
+print("Sistema de Key activado. Ingresa 'LOL' del Discord.")
